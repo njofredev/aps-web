@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Variables de tema dinámico (Por defecto modo oscuro per referencia visual) */
+  --aps-canvas-bg: #070a13;
+  --aps-canvas-card: #0e1424;
+  --aps-canvas-card-elevated: #131a30;
+  --aps-canvas-subtle: #0a0e1c;
+  --aps-border-subtle: rgba(255, 255, 255, 0.08);
+  --aps-border-hover: rgba(127, 33, 254, 0.4);
+  --aps-text-primary: #f8fafc;
+  --aps-text-secondary: #94a3b8;
+  --aps-text-muted: #64748b;
+  --aps-nav-bg: rgba(7, 10, 19, 0.85);
+
+  /* Marca Violeta institucional oficial (v3) */
+  --aps-brand-50:  #f5f3ff;
+  --aps-brand-100: #ece6ff;
+  --aps-brand-200: #d9cdff;
+  --aps-brand-300: #c2aaff;
+  --aps-brand-400: #a477ff;
+  --aps-brand-500: #914aff;
+  --aps-brand-600: #7f21fe; /* Primario oficial */
+  --aps-brand-700: #6c1bd9;
+  --aps-brand-800: #581cb1;
+  --aps-brand-900: #451a8b;
+
+  --aps-primary: var(--aps-brand-600);
+  --aps-primary-hover: var(--aps-brand-700);
+
+  /* Acentos semánticos */
+  --aps-gold-500: #e06f00;
+  --aps-gold-600: #bd5b00;
+  --aps-success: #009764;
+  --aps-success-bg: rgba(0, 151, 100, 0.15);
+  --aps-success-text: #34d399;
+
+  /* Sombras y elevaciones */
+  --aps-glow-brand: 0 0 60px -15px rgba(127, 33, 254, 0.35);
+  --aps-shadow-card: 0 12px 36px -10px rgba(0, 0, 0, 0.6);
+}
+
+html.light {
+  --aps-canvas-bg: #f8fafc;
+  --aps-canvas-card: #ffffff;
+  --aps-canvas-card-elevated: #f1f5f9;
+  --aps-canvas-subtle: #f8fafc;
+  --aps-border-subtle: #e2e8f0;
+  --aps-border-hover: #cbd5e1;
+  --aps-text-primary: #0f172a;
+  --aps-text-secondary: #475569;
+  --aps-text-muted: #64748b;
+  --aps-nav-bg: rgba(255, 255, 255, 0.85);
+
+  --aps-success-bg: #c4f1da;
+  --aps-success-text: #006b46;
+  --aps-glow-brand: 0 0 40px -15px rgba(127, 33, 254, 0.2);
+  --aps-shadow-card: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+}
+
+@theme inline {
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Antialiasing y suavizado de bordes para eliminar picos de sierra en fuentes */
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *::before, *::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--aps-canvas-bg);
+  color: var(--aps-text-primary);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reglas interactivas segun antislop R-39 */
+button,
+[role="button"],
+a[href],
+select,
+summary,
+label[for],
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+
+:disabled,
+[aria-disabled="true"],
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Foco accesible de alto contraste per R-32 */
+:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(127, 33, 254, 0.6), 0 0 0 5px rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+}
+
+h1 {
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  letter-spacing: -0.015em;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Efectos visuales de resplandor sutil estilo SaaS moderno */
+.ambient-glow-bottom {
+  background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(127, 33, 254, 0.22) 0%, rgba(88, 28, 177, 0.08) 45%, transparent 75%);
+}
+
+.ambient-glow-top {
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(127, 33, 254, 0.18) 0%, rgba(88, 28, 177, 0.05) 45%, transparent 75%);
+}
+
+/* Animaciones de flotación para píldoras del Hero (movimiento fluido y perceptible) */
+@keyframes float-gentle-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(-1.5deg);
+  }
+}
+
+@keyframes float-gentle-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(3.5deg);
+  }
+}
+
+@keyframes float-gentle-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0.5deg);
+  }
+}
+
+@keyframes float-gentle-4 {
+  0%, 100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
+}
+
+@keyframes float-gentle-5 {
+  0%, 100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(-3.5deg);
+  }
+}
+
+@keyframes float-gentle-6 {
+  0%, 100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+.animate-float-1 {
+  animation: float-gentle-1 4.2s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-gentle-2 4.8s ease-in-out 1.2s infinite;
+}
+
+.animate-float-3 {
+  animation: float-gentle-3 4.5s ease-in-out 0.7s infinite;
+}
+
+.animate-float-4 {
+  animation: float-gentle-4 5.2s ease-in-out 1.8s infinite;
+}
+
+.animate-float-5 {
+  animation: float-gentle-5 4.6s ease-in-out 2.2s infinite;
+}
+
+.animate-float-6 {
+  animation: float-gentle-6 5.0s ease-in-out 0.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
