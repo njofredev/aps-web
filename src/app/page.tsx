@@ -1,8 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import HeroInteractivePreview from '@/components/HeroInteractivePreview';
 import ShowcaseViewer from '@/components/ShowcaseViewer';
-import ContactForm from '@/components/ContactForm';
 import FaqAccordion from '@/components/FaqAccordion';
 import DailyContrast from '@/components/DailyContrast';
 import { ApsLogo } from '@/components/ApsLogo';
@@ -44,7 +44,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[var(--aps-canvas-bg)] text-[var(--aps-text-primary)] transition-colors duration-200 selection:bg-[#7f21fe]/30 selection:text-purple-200">
-      
+
       {/* ===================== NAVEGACIÓN PRINCIPAL ===================== */}
       <Navigation />
 
@@ -64,16 +64,16 @@ export default function Home() {
           />
 
           <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10 text-center">
-            
+
             {/* Cintillo superior con respaldo de Nextcloud (Color oficial #0082c9) y Colmed 3 */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0082c9]/10 dark:bg-[#0082c9]/20 border border-[#0082c9]/35 dark:border-[#0082c9]/50 text-[#00659e] dark:text-[#38bdf8] text-xs font-semibold shadow-xs mb-6 sm:mb-8 backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5 text-[#0082c9] dark:text-[#38bdf8]" aria-hidden="true" />
-              <span>Con la potencia de Nextcloud Hub &bull; Proyecto Colmed 3</span>
+              <span>Con la potencia de Nextcloud 34</span>
             </div>
 
             {/* Gran titular centrado con píldoras interactivas de aplicaciones */}
             <div className="relative max-w-4xl mx-auto px-2 sm:px-4">
-              
+
               {/* Píldora 1: Archivos (Arriba a la izquierda) */}
               <div className="hidden xl:block absolute -left-6 2xl:-left-12 -top-5 z-10">
                 <div
@@ -109,7 +109,7 @@ export default function Home() {
                   <span className="p-1 rounded-lg bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400">
                     <BrainCircuit className="w-3.5 h-3.5" aria-hidden="true" />
                   </span>
-                  <span>Asistente AI</span>
+                  <span>IA Local </span>
                 </div>
               </div>
 
@@ -157,7 +157,7 @@ export default function Home() {
                 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-extrabold tracking-tight leading-[1.08] text-[var(--aps-text-primary)] max-w-3xl mx-auto"
               >
                 La gestión interna que un CESFAM{' '}
-                <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36] bg-clip-text text-transparent">
                   nunca tuvo.
                 </span>
               </h1>
@@ -168,19 +168,19 @@ export default function Home() {
 
               {/* Botones CTA principales */}
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <a
-                  href="#contacto"
-                  className="h-12 sm:h-13 px-7 rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] active:bg-[#581cb1] text-white text-sm font-bold shadow-[0_8px_30px_rgba(127,33,254,0.5)] hover:shadow-[0_10px_35px_rgba(127,33,254,0.7)] transition-all flex items-center gap-2"
+                <Link
+                  href="/agenda"
+                  className="h-12 sm:h-13 px-7 rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] active:bg-[#581cb1] text-white text-sm font-bold shadow-[0_8px_30px_rgba(127,33,254,0.45)] hover:shadow-[0_16px_36px_rgba(127,33,254,0.65)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 ease-out flex items-center gap-2 group"
                 >
                   <span>Solicitar Piloto en tu Comuna</span>
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </a>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
 
                 <a
                   href="#explorar-demo"
-                  className="h-12 sm:h-13 px-7 rounded-full bg-white/10 dark:bg-white/10 light:bg-slate-200 hover:bg-white/20 dark:hover:bg-white/20 light:hover:bg-slate-300 text-[var(--aps-text-primary)] border border-white/15 dark:border-white/15 light:border-slate-300 text-sm font-semibold transition-all flex items-center gap-2 backdrop-blur-sm"
+                  className="h-12 sm:h-13 px-7 rounded-full bg-white/70 dark:bg-white/[0.07] hover:bg-white dark:hover:bg-white/[0.12] text-[var(--aps-text-primary)] border-2 border-purple-200 dark:border-purple-500/40 hover:border-purple-400 dark:hover:border-purple-400 shadow-sm hover:shadow-lg hover:shadow-purple-500/10 dark:hover:shadow-purple-950/30 hover:-translate-y-1 active:translate-y-0 text-sm font-semibold transition-all duration-300 ease-out flex items-center gap-2 backdrop-blur-md group"
                 >
-                  <Play className="w-4 h-4 fill-current text-purple-400" aria-hidden="true" />
+                  <Play className="w-4 h-4 fill-[#7f21fe] text-[#7f21fe] dark:fill-purple-400 dark:text-purple-400 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
                   <span>Explorar Demostración</span>
                 </a>
               </div>
@@ -246,7 +246,7 @@ export default function Home() {
                 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight"
               >
                 Todo lo que ocurre fuera del box,{' '}
-                <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36] bg-clip-text text-transparent">
                   por fin
                 </span>{' '}
                 en un solo lugar.
@@ -270,7 +270,7 @@ export default function Home() {
           className="scroll-mt-24 py-16 sm:py-20 border-b border-[var(--aps-border-subtle)] bg-[var(--aps-canvas-bg)]"
         >
           <div className="max-w-[1240px] mx-auto px-4 sm:px-6 space-y-8">
-            
+
             <div className="max-w-2xl mx-auto text-center space-y-2">
               <span className="text-xs font-mono font-bold text-[#7f21fe] dark:text-purple-400 uppercase tracking-widest">
                 APLICACIONES INCLUIDAS
@@ -280,10 +280,10 @@ export default function Home() {
                 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[var(--aps-text-primary)]"
               >
                 Las{' '}
-                <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36] bg-clip-text text-transparent">
                   17 aplicaciones
                 </span>{' '}
-                de tu CESFAM
+                para tu CESFAM
               </h2>
               <p className="text-sm text-[var(--aps-text-secondary)] font-normal">
                 Todas de código abierto sobre Nextcloud Hub, ejecutadas en tu servidor físico y con $0 en licencias.
@@ -296,85 +296,108 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
-            SECCIÓN 4: IMPACTO EN BURNOUT + INVITACIÓN AL PILOTO Y FORMULARIO
+            SECCIÓN 4: PREGUNTAS FRECUENTES (FAQS)
+        ========================================================================= */}
+        <section
+          id="faqs"
+          aria-labelledby="faqs-heading"
+          className="scroll-mt-24 py-16 sm:py-20 border-b border-[var(--aps-border-subtle)] bg-[var(--aps-canvas-bg)]"
+        >
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 space-y-6">
+            <div className="text-center space-y-2">
+              <h2
+                id="faqs-heading"
+                className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--aps-text-primary)]"
+              >
+                Preguntas Frecuentes sobre{' '}
+                <span className="bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36] bg-clip-text text-transparent">
+                  APS Conecta
+                </span>
+              </h2>
+              <p className="text-xs sm:text-sm text-[var(--aps-text-secondary)]">
+                Respuestas técnicas y operativas sobre infraestructura, privacidad y financiamiento.
+              </p>
+            </div>
+
+            <FaqAccordion />
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECCIÓN 5: BANNER CALL TO ACTION ESTILO HEADSPACE CON ACCESO A AGENDA
         ========================================================================= */}
         <section
           id="contacto"
           aria-labelledby="contacto-heading"
-          className="scroll-mt-24 py-16 sm:py-24 relative overflow-hidden bg-gradient-to-b from-transparent via-purple-50/40 to-slate-100/60 dark:from-transparent dark:to-transparent dark:bg-[var(--aps-canvas-subtle)]"
+          className="scroll-mt-24 py-16 sm:py-24 relative overflow-hidden bg-white light:bg-slate-50 dark:bg-[#070a13]"
         >
-          {/* Resplandor violeta ambiental centrado para modo claro y oscuro */}
-          <div
-            className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-purple-500/10 via-[#7f21fe]/12 to-amber-500/10 rounded-full blur-[140px] pointer-events-none"
-            aria-hidden="true"
-          />
-
-          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-            
-            {/* Formulario minimalista centrado */}
-            <div className="max-w-2xl mx-auto space-y-6">
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10">
+            {/* Banner llamativo y directo inspirado en Headspace */}
+            <div className="relative rounded-3xl sm:rounded-[36px] bg-gradient-to-r from-[#7f21fe] via-[#6c1bd9] to-[#5012a4] p-8 sm:p-14 lg:p-16 text-white text-center shadow-2xl shadow-purple-950/40 overflow-hidden">
               
-              {/* Encabezado centrado y directo */}
-              <div className="text-center space-y-2.5">
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-purple-100 dark:bg-purple-950/60 border border-purple-300 dark:border-purple-500/40 text-[#7f21fe] dark:text-purple-300 text-xs font-bold shadow-xs">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" aria-hidden="true" />
-                  <span>Convocatoria 2026</span>
+              {/* Resplandores ambientales y fondo de ilustración sutil */}
+              <div
+                className="absolute top-0 right-0 w-[500px] h-[300px] bg-amber-400/15 rounded-full blur-[100px] pointer-events-none"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-purple-400/20 rounded-full blur-[100px] pointer-events-none"
+                aria-hidden="true"
+              />
+
+              <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+                
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs font-semibold shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" aria-hidden="true" />
+                  <span>Convocatoria Nacional 2027</span>
                 </div>
+
                 <h2
                   id="contacto-heading"
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[var(--aps-text-primary)] leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight"
                 >
-                  Postula tu{' '}
-                  <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
-                    CESFAM
-                  </span>{' '}
-                  al piloto
+                  No tienes por qué resolver la trastienda de tu CESFAM a solas.
                 </h2>
-                <p className="text-xs sm:text-sm text-[var(--aps-text-secondary)] leading-relaxed max-w-lg mx-auto">
-                  Instalamos un servidor de prueba en tu red local con las 17 aplicaciones operativas. $0 en licencias y sin tocar RAYEN ni OMI.
+
+                <p className="text-sm sm:text-base md:text-lg text-purple-100/90 leading-relaxed max-w-xl mx-auto font-normal">
+                  Postula tu establecimiento al piloto oficial. Instalamos un servidor local de prueba con las 17 aplicaciones activas, $0 en licencias y sin tocar RAYEN ni OMI.
                 </p>
 
-                {/* 3 Garantías con acentos cromáticos armoniosos en modo claro y oscuro */}
-                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/25 text-emerald-800 dark:text-emerald-300 font-semibold shadow-xs">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
+                {/* Botones de acción hacia la página de Agenda */}
+                <div className="pt-3 flex flex-wrap items-center justify-center gap-3.5">
+                  <Link
+                    href="/agenda"
+                    className="h-12 sm:h-13 px-8 rounded-full bg-white hover:bg-slate-100 active:bg-slate-200 text-[#5012a4] text-sm sm:text-base font-bold shadow-xl shadow-black/20 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2.5 group cursor-pointer"
+                  >
+                    <span>Postular al Piloto</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+
+                  <a
+                    href="mailto:contacto@apsconecta.cl"
+                    className="h-12 sm:h-13 px-7 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/25 text-sm sm:text-base font-semibold backdrop-blur-sm transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                  >
+                    <span>contacto@apsconecta.cl</span>
+                  </a>
+                </div>
+
+                {/* 3 Garantías inferiores compactas */}
+                <div className="pt-4 flex flex-wrap items-center justify-center gap-4 text-xs text-purple-200 font-medium">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>100% Red LAN Local</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-500/25 text-purple-800 dark:text-purple-300 font-semibold shadow-xs">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" aria-hidden="true" />
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0" />
                     <span>$0 en Licencias (AGPL-3.0)</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-500/25 text-amber-900 dark:text-amber-300 font-semibold shadow-xs">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" aria-hidden="true" />
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-purple-200 shrink-0" />
                     <span>Respaldo Colmed 3</span>
                   </span>
                 </div>
+
               </div>
-
-              {/* Tarjeta del Formulario centrada con relieve y borde iluminado */}
-              <div className="bg-white dark:bg-[#0c1020] p-6 sm:p-8 rounded-3xl border border-purple-200/70 dark:border-white/10 shadow-2xl shadow-purple-500/10 dark:shadow-purple-950/40 text-left relative overflow-hidden">
-                {/* Acento superior de degradado de marca */}
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 via-purple-400 to-amber-300" />
-                <ContactForm />
-              </div>
-
-            </div>
-
-            {/* Preguntas Frecuentes */}
-            <div className="max-w-3xl mx-auto space-y-6 pt-10">
-              <div className="text-center space-y-2">
-                <h3 className="text-xl sm:text-2xl font-bold text-[var(--aps-text-primary)]">
-                  Preguntas Frecuentes sobre{' '}
-                  <span className="bg-gradient-to-r from-purple-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
-                    APS Conecta
-                  </span>
-                </h3>
-                <p className="text-xs sm:text-sm text-[var(--aps-text-secondary)]">
-                  Respuestas técnicas y operativas sobre infraestructura, privacidad y financiamiento.
-                </p>
-              </div>
-
-              <FaqAccordion />
             </div>
           </div>
         </section>
@@ -447,13 +470,13 @@ export default function Home() {
 
               <div className="mt-6 pt-4 border-t border-slate-800/80">
                 <div className="text-[11px] text-slate-400 mb-2">Solicita Reunión:</div>
-                <a
-                  href="#contacto"
+                <Link
+                  href="/agenda"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors"
                 >
-                  <span>Solicitar Piloto</span>
+                  <span>Postular al Piloto</span>
                   <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

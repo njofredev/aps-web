@@ -27,31 +27,23 @@ export async function submitContactAction(
   const nombre = (formData.get('nombre') as string)?.trim() || '';
   const email = (formData.get('email') as string)?.trim() || '';
   const establecimiento = (formData.get('establecimiento') as string)?.trim() || '';
-  const estamento = (formData.get('estamento') as string)?.trim() || '';
-  const telefono = (formData.get('telefono') as string)?.trim() || '';
   const mensaje = (formData.get('mensaje') as string)?.trim() || '';
+  const telefono = (formData.get('telefono') as string)?.trim() || '';
+  const estamento = (formData.get('estamento') as string)?.trim() || 'No especificado';
 
   const errors: Record<string, string> = {};
 
   if (!nombre || nombre.length < 3) {
-    errors.nombre = 'Ingresa tu nombre completo (mínimo 3 caracteres).';
+    errors.nombre = 'Ingresa tu nombre.';
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email || !emailRegex.test(email)) {
-    errors.email = 'Ingresa un correo electrónico válido (ej. nombre@salud.cl).';
+    errors.email = 'Ingresa un correo institucional o personal válido.';
   }
 
   if (!establecimiento || establecimiento.length < 3) {
-    errors.establecimiento = 'Indica el CESFAM, CECOSF o Comuna correspondiente.';
-  }
-
-  if (!estamento) {
-    errors.estamento = 'Selecciona tu cargo o rol en la salud pública.';
-  }
-
-  if (!mensaje || mensaje.length < 10) {
-    errors.mensaje = 'Por favor describe brevemente tu requerimiento o consulta (mínimo 10 caracteres).';
+    errors.establecimiento = 'Indica el nombre de tu CESFAM o Comuna.';
   }
 
   if (Object.keys(errors).length > 0) {

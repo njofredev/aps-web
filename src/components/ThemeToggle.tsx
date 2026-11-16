@@ -17,16 +17,22 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
       title={
         theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'
       }
-      className={`relative inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border transition-all duration-200 focus:outline-none ${
+      className={`group relative inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border transition-all duration-300 ease-out focus:outline-none cursor-pointer hover:scale-105 active:scale-95 ${
         theme === 'dark'
-          ? 'bg-[#121829] border-white/10 text-amber-300 hover:text-amber-200 hover:border-white/25 hover:bg-[#182138] shadow-[0_0_12px_rgba(245,158,11,0.15)]'
-          : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50 shadow-sm'
+          ? 'bg-[#121829] border-white/15 text-amber-300 hover:text-amber-200 hover:border-amber-400/40 hover:bg-[#161d30] shadow-sm hover:shadow-md'
+          : 'bg-white border-slate-200 text-slate-700 hover:text-[#7f21fe] hover:border-purple-300 hover:bg-slate-50 shadow-sm hover:shadow-md'
       } ${className}`}
     >
       {theme === 'dark' ? (
-        <Sun className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-300 rotate-0 hover:rotate-45" aria-hidden="true" />
+        <Sun
+          className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-500 ease-out rotate-0 group-hover:rotate-45 group-hover:scale-110 text-amber-400 group-hover:text-amber-300"
+          aria-hidden="true"
+        />
       ) : (
-        <Moon className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-300 -rotate-12 hover:rotate-0" aria-hidden="true" />
+        <Moon
+          className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-500 ease-out -rotate-12 group-hover:rotate-0 group-hover:scale-110 text-slate-700 group-hover:text-[#7f21fe]"
+          aria-hidden="true"
+        />
       )}
     </button>
   );

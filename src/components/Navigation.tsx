@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ApsLogo } from '@/components/ApsLogo';
 import ThemeToggle from '@/components/ThemeToggle';
 import { Menu, X, ArrowRight } from 'lucide-react';
@@ -97,57 +98,68 @@ export default function Navigation() {
         }`}
       >
         <div
-          className={`max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4 transition-all duration-300 ease-out ${
-            isScrolled ? 'h-13 sm:h-14' : 'h-18'
+          className={`max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center transition-all duration-300 ease-out ${
+            isScrolled ? 'h-13 sm:h-14 gap-5 lg:gap-8 justify-between' : 'h-18 gap-4 justify-between'
           }`}
         >
-          {/* Logo y Nombre que se compactan suavemente con el scroll */}
-          <a
-            href="#inicio"
-            aria-label="Ir al inicio de APS Conecta"
-            className="flex items-center gap-2.5 sm:gap-3 transition-opacity hover:opacity-90 shrink-0"
-          >
-            <div className={`transition-transform duration-300 origin-left ${isScrolled ? 'scale-85' : 'scale-100'}`}>
-              <ApsLogo size={36} />
-            </div>
-            <span
-              className={`font-bold tracking-tight leading-tight text-[var(--aps-text-primary)] transition-all duration-300 ${
-                isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
+          {/* Bloque Izquierdo: Logo y Navegación (en scroll se unen para que el logo no quede huérfano a la izquierda) */}
+          <div className="flex items-center gap-4 sm:gap-6 lg:gap-7">
+            {/* Logo y Nombre: al hacer scroll se oculta el texto y solo queda el logo */}
+            <a
+              href="#inicio"
+              aria-label="Ir al inicio de APS Conecta"
+              className="flex items-center gap-2.5 sm:gap-3 transition-opacity hover:opacity-90 shrink-0 group"
+            >
+              <div
+                className={`transition-all duration-300 flex items-center justify-center ${
+                  isScrolled
+                    ? 'scale-105 filter drop-shadow-[0_2px_8px_rgba(127,33,254,0.35)]'
+                    : 'scale-100'
+                }`}
+              >
+                <ApsLogo size={isScrolled ? 38 : 36} />
+              </div>
+              <span
+                className={`font-bold tracking-tight leading-tight text-[var(--aps-text-primary)] transition-all duration-300 overflow-hidden whitespace-nowrap ${
+                  isScrolled
+                    ? 'max-w-0 opacity-0 -translate-x-2'
+                    : 'max-w-[200px] opacity-100 translate-x-0 text-lg sm:text-xl'
+                }`}
+              >
+                APS Conecta
+              </span>
+            </a>
+
+            {/* Navegacion en pantallas medianas y amplias */}
+            <nav
+              aria-label="Navegación del sitio"
+              className={`hidden md:flex items-center gap-4 lg:gap-6 transition-all duration-300 font-medium ${
+                isScrolled ? 'text-xs' : 'text-xs sm:text-sm'
               }`}
             >
-              APS Conecta
-            </span>
-          </a>
-
-          {/* Navegacion en pantallas medianas y amplias */}
-          <nav
-            aria-label="Navegación del sitio"
-            className={`hidden md:flex items-center gap-5 lg:gap-7 transition-all duration-300 font-medium ${
-              isScrolled ? 'text-xs' : 'text-xs sm:text-sm'
-            }`}
-          >
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`transition-colors py-1 relative group font-semibold ${
-                    isActive
-                      ? 'text-[var(--aps-text-primary)] font-bold'
-                      : 'text-[var(--aps-text-secondary)] hover:text-[var(--aps-text-primary)]'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-[#7f21fe] rounded-full transition-all duration-200 ${
-                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`transition-colors py-1 relative group font-semibold ${
+                      isActive
+                        ? 'text-[var(--aps-text-primary)] font-bold'
+                        : 'text-[var(--aps-text-secondary)] hover:text-[var(--aps-text-primary)]'
                     }`}
-                  />
-                </a>
-              );
-            })}
-          </nav>
+                  >
+                    <span>{link.label}</span>
+                    <span
+                      className={`absolute bottom-0 left-0 h-0.5 bg-[#7f21fe] rounded-full transition-all duration-200 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}
+                    />
+                  </a>
+                );
+              })}
+            </nav>
+          </div>
 
           {/* Acciones: Selector de Tema + Acceso a Codigo + Boton Solicitar Piloto */}
           <div className="flex items-center gap-2 sm:gap-2.5">
@@ -175,8 +187,8 @@ export default function Navigation() {
             </a>
 
             {/* Boton Solicitar Piloto compacto al scroll */}
-            <a
-              href="#contacto"
+            <Link
+              href="/agenda"
               className={`inline-flex rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] active:bg-[#581cb1] text-white font-semibold shadow-[0_4px_16px_rgba(127,33,254,0.4)] hover:shadow-[0_6px_24px_rgba(127,33,254,0.6)] transition-all duration-300 items-center gap-1.5 ${
                 isScrolled
                   ? 'h-8.5 sm:h-9 px-3.5 sm:px-4 text-xs'
@@ -185,7 +197,7 @@ export default function Navigation() {
             >
               <span>Solicitar Piloto</span>
               <ArrowRight className={`transition-all duration-300 ${isScrolled ? 'w-3.5 h-3.5' : 'w-4 h-4'}`} aria-hidden="true" />
-            </a>
+            </Link>
 
             {/* Boton hamburguesa para movil */}
             <button

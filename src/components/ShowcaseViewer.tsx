@@ -481,15 +481,15 @@ export default function ShowcaseViewer() {
 // Tarjeta Central On-Premise APS Conecta (compartida entre Desktop y Móvil)
 function CenterHubCard({ hoveredApp }: { hoveredApp: AppTile | null }) {
   return (
-    <div className="w-full h-full min-h-[120px] sm:min-h-[135px] rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#0c1020] border-2 border-[#7f21fe] dark:border-purple-500 shadow-xl shadow-purple-900/20 flex flex-col items-center justify-center text-center gap-2 relative overflow-hidden group">
+    <div className="w-full h-[152px] sm:h-[156px] rounded-3xl px-5 py-4 sm:px-6 bg-white dark:bg-[#0c1020] border-2 border-[#7f21fe] dark:border-purple-500 shadow-xl shadow-purple-900/20 flex flex-col items-center justify-between text-center relative overflow-hidden group">
       {/* Pulso de radar animado en el fondo */}
       <div
         className="absolute inset-0 rounded-3xl bg-purple-500/10 animate-ping opacity-25 pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex items-center gap-2">
-        <ApsLogo size={32} />
+      <div className="relative z-10 flex items-center gap-2 shrink-0">
+        <ApsLogo size={30} />
         <span className="font-extrabold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight">
           APS Conecta
         </span>
@@ -498,37 +498,31 @@ function CenterHubCard({ hoveredApp }: { hoveredApp: AppTile | null }) {
         </span>
       </div>
 
-      {/* Mensaje dinámico con altura fija y sin saltos al alternar entre tarjetas */}
-      <div className="relative z-10 w-full min-h-[44px] flex flex-col items-center justify-center text-center space-y-1 px-2">
+      {/* Contenido dinámico con altura fija y centrada para evitar cualquier salto o variación de height */}
+      <div className="relative z-10 w-full h-[66px] flex flex-col items-center justify-center text-center space-y-1 px-2">
         {hoveredApp ? (
           <>
-            <h3 className="text-xs sm:text-sm font-bold text-[#7f21fe] dark:text-purple-300 flex items-center justify-center gap-1.5 truncate max-w-full animate-fadeIn">
+            <h3 className="text-sm sm:text-base font-bold text-[#7f21fe] dark:text-purple-300 flex items-center justify-center gap-2 max-w-full animate-fadeIn leading-tight">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-              <span>{hoveredApp.nombre}</span>
+              <span className="truncate">{hoveredApp.nombre}</span>
+              <span className="text-[11px] font-mono font-normal text-slate-400 dark:text-slate-500 truncate">
+                ({hoveredApp.motorOpenSource})
+              </span>
             </h3>
-            <p className="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate max-w-md mx-auto animate-fadeIn">
+            <p className="text-xs text-slate-700 dark:text-slate-200 font-medium leading-relaxed max-w-md mx-auto line-clamp-2 animate-fadeIn">
               {hoveredApp.descripcionCorta}
             </p>
           </>
         ) : (
           <>
-            <h3 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 truncate max-w-full">
+            <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200 max-w-full leading-tight">
               Toda la trastienda de tu CESFAM conectada
             </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal truncate max-w-sm mx-auto">
-              Explora las 17 aplicaciones
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-normal max-w-md mx-auto leading-relaxed">
+              Pasa el cursor sobre cualquiera de las 17 aplicaciones para conocer su función operativa
             </p>
           </>
         )}
-      </div>
-
-      <div className="relative z-10 flex flex-wrap items-center justify-center gap-2 pt-0.5 text-[10px] font-mono text-purple-700 dark:text-purple-300">
-        <span className="px-2 py-0.5 rounded-md bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/40">
-          100% Red LAN Local
-        </span>
-        <span className="px-2 py-0.5 rounded-md bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/40">
-          $0 en Licencias
-        </span>
       </div>
     </div>
   );

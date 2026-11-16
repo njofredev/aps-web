@@ -39,6 +39,7 @@ import {
   Crosshair,
   Building2,
   Car,
+  HelpCircle,
 } from 'lucide-react';
 
 interface HealthCenter {
@@ -125,26 +126,27 @@ interface AppItem {
   id: AppKey;
   nombre: string;
   icono: React.ElementType;
+  descripcion: string;
 }
 
 const ALL_17_APPS: AppItem[] = [
-  { id: 'archivos', nombre: 'Archivos', icono: Folder },
-  { id: 'asistente', nombre: 'Asistente de Decisiones', icono: BrainCircuit },
-  { id: 'estadistica', nombre: 'Estadística', icono: BarChart2 },
-  { id: 'farmacia', nombre: 'Farmacia', icono: Pill },
-  { id: 'territorio', nombre: 'Territorio', icono: Map },
-  { id: 'totem', nombre: 'Totem', icono: Monitor },
-  { id: 'epidemiologia', nombre: 'Epidemiología', icono: Activity },
-  { id: 'fotos', nombre: 'Fotos', icono: ImageIcon },
-  { id: 'calendario', nombre: 'Calendario', icono: Calendar },
-  { id: 'contactos', nombre: 'Contactos', icono: Users },
-  { id: 'deck', nombre: 'Deck', icono: Layers },
-  { id: 'intravox', nombre: 'IntraVox', icono: Newspaper },
-  { id: 'notas', nombre: 'Notas', icono: Edit3 },
-  { id: 'oficina', nombre: 'Oficina', icono: FileText },
-  { id: 'tareas', nombre: 'Tareas', icono: CheckSquare },
-  { id: 'actividad', nombre: 'Actividad', icono: Zap },
-  { id: 'talk', nombre: 'Talk', icono: MessageSquare },
+  { id: 'archivos', nombre: 'Archivos', icono: Folder, descripcion: 'Gestión documental y circulares ministeriales con acuse de lectura legal.' },
+  { id: 'asistente', nombre: 'Asistente de Decisiones', icono: BrainCircuit, descripcion: 'Síntesis y clasificación de oficios mediante IA local en el rack.' },
+  { id: 'estadistica', nombre: 'Estadística', icono: BarChart2, descripcion: 'Monitoreo de metas REM (Ley 19.813) y reportes de gestión comunal.' },
+  { id: 'farmacia', nombre: 'Farmacia', icono: Pill, descripcion: 'Control de petitorio comunal de fármacos y alerta de quiebres de stock.' },
+  { id: 'territorio', nombre: 'Territorio', icono: Map, descripcion: 'Sectorización MAIS en cuadrantes y georreferenciación de pacientes PADI.' },
+  { id: 'totem', nombre: 'Totem', icono: Monitor, descripcion: 'Pantallas informativas y turnos en salas de espera de los centros.' },
+  { id: 'epidemiologia', nombre: 'Epidemiología', icono: Activity, descripcion: 'Vigilancia de brotes comunales y seguimiento de alertas sanitarias ENO.' },
+  { id: 'fotos', nombre: 'Fotos', icono: ImageIcon, descripcion: 'Registro fotográfico seguro de operativos en terreno y comités técnicos.' },
+  { id: 'calendario', nombre: 'Calendario', icono: Calendar, descripcion: 'Coordinación y reserva de boxes clínicos y turnos de extensión horaria.' },
+  { id: 'contactos', nombre: 'Contactos', icono: Users, descripcion: 'Directorio telefónico interno de anexos por sector, SOME y red territorial.' },
+  { id: 'deck', nombre: 'Deck', icono: Layers, descripcion: 'Tableros Kanban visuales para comités de compras y proyectos comunales.' },
+  { id: 'intravox', nombre: 'IntraVox', icono: Newspaper, descripcion: 'Boletín interno del CESFAM, protocolos actualizados y normativas vigentes.' },
+  { id: 'notas', nombre: 'Notas', icono: Edit3, descripcion: 'Bitácoras clínicas de enlace rápido entre profesionales y cambio de turno.' },
+  { id: 'oficina', nombre: 'Oficina', icono: FileText, descripcion: 'Editor colaborativo de actas de sector y documentos clínicos institucionales.' },
+  { id: 'tareas', nombre: 'Tareas', icono: CheckSquare, descripcion: 'Listas de verificación para entrega de box, auditorías y pautas de calidad.' },
+  { id: 'actividad', nombre: 'Actividad', icono: Zap, descripcion: 'Registro cronológico inmutable de auditoría institucional según Ley 19.628.' },
+  { id: 'talk', nombre: 'Talk', icono: MessageSquare, descripcion: 'Mensajería cifrada y videollamadas locales entre sectores sin usar WhatsApp.' },
 ];
 
 interface CommentItem {
@@ -299,6 +301,11 @@ export default function HeroInteractivePreview() {
     responsable: string;
   } | null>(null);
   const [mapZoom, setMapZoom] = useState<number>(1);
+  const [hoveredAppTooltip, setHoveredAppTooltip] = useState<{
+    app: AppItem;
+    top: number;
+    left: number;
+  } | null>(null);
 
   // Reacciones interactivas
   const [reactions, setReactions] = useState<{ count: number; userReacted: boolean }>({
@@ -360,12 +367,12 @@ export default function HeroInteractivePreview() {
 
       {/* Contenedor principal de la ventana Nextcloud */}
       <div className="relative rounded-2xl sm:rounded-3xl border border-slate-300/80 dark:border-white/10 bg-white dark:bg-[#0c101d] text-slate-800 dark:text-slate-100 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.4),0_0_40px_-10px_rgba(127,33,254,0.3)] overflow-hidden transition-all duration-200">
-        
+
         {/* =========================================================================
             BARRA SUPERIOR NEXTCLOUD (MORADO #5414ad)
         ========================================================================= */}
         <div className="bg-[#5414ad] text-white px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4 shrink-0">
-          
+
           {/* Lado izquierdo: Botón de aplicaciones + Logo Constelación + Nombre dinámico rotatorio */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
@@ -380,13 +387,12 @@ export default function HeroInteractivePreview() {
 
             <div className="flex items-center gap-1.5 sm:gap-2">
               <ApsLogo size={22} monochrome className="text-white shrink-0" />
-              
+
               {/* Nombre dinámico de centro en rotación suave */}
               <div className="overflow-hidden">
                 <span
-                  className={`inline-block font-bold text-xs sm:text-sm tracking-tight text-white transition-all duration-500 ease-in-out ${
-                    isFading ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0'
-                  }`}
+                  className={`inline-block font-bold text-xs sm:text-sm tracking-tight text-white transition-all duration-500 ease-in-out ${isFading ? 'opacity-0 -translate-y-1' : 'opacity-100 translate-y-0'
+                    }`}
                 >
                   {currentCenter.nombre}
                 </span>
@@ -431,20 +437,19 @@ export default function HeroInteractivePreview() {
             CUERPO: BARRA LATERAL (17 APPS) + LIENZO DINÁMICO QUE CAMBIA SEGÚN LA APP
         ========================================================================= */}
         <div className="flex h-[560px] sm:h-[600px] lg:h-[620px] overflow-hidden">
-          
+
           {/* BARRA LATERAL DE 17 APPS */}
           <div className="w-48 sm:w-52 bg-[#5012a4] text-white shrink-0 flex flex-col justify-between border-r border-purple-900/50 shadow-inner select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overflow-y-auto">
-            
+
             <div className="p-2 sm:p-2.5 space-y-1.5">
               {/* Botón de acceso a Inicio */}
               <button
                 type="button"
                 onClick={() => setActiveApp('inicio')}
-                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer ${
-                  activeApp === 'inicio'
+                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer ${activeApp === 'inicio'
                     ? 'bg-white text-[#5012a4] shadow-sm font-bold'
                     : 'text-purple-100 hover:bg-white/10 hover:text-white'
-                }`}
+                  }`}
               >
                 <Home className="w-3.5 h-3.5 shrink-0" />
                 <span>Inicio (Intranet)</span>
@@ -462,26 +467,51 @@ export default function HeroInteractivePreview() {
                 </div>
               </div>
 
-              {/* Listado de las 17 aplicaciones: al hacer clic cambia el contenido */}
+              {/* Listado de las 17 aplicaciones: al hacer clic cambia el contenido y botón de ayuda con tooltip */}
               <div className="space-y-0.5">
                 {ALL_17_APPS.map((app) => {
                   const AppIcon = app.icono;
                   const isActive = activeApp === app.id;
                   return (
-                    <button
+                    <div
                       key={app.id}
-                      type="button"
-                      onClick={() => setActiveApp(app.id)}
-                      className={`w-full text-left px-2 py-1 rounded-md text-[11px] font-medium flex items-center gap-2 transition-colors cursor-pointer ${
-                        isActive
+                      className={`group/item relative flex items-center justify-between rounded-md text-[11px] font-medium transition-colors ${isActive
                           ? 'bg-white/25 text-white font-bold shadow-2xs'
                           : 'text-purple-100 hover:bg-white/10 hover:text-white'
-                      }`}
-                      title={app.nombre}
+                        }`}
                     >
-                      <AppIcon className="w-3.5 h-3.5 text-purple-200 shrink-0" />
-                      <span className="truncate">{app.nombre}</span>
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveApp(app.id)}
+                        className="flex-1 text-left px-2 py-1 flex items-center gap-2 cursor-pointer min-w-0"
+                        title={app.nombre}
+                      >
+                        <AppIcon className="w-3.5 h-3.5 text-purple-200 shrink-0" />
+                        <span className="truncate">{app.nombre}</span>
+                      </button>
+
+                      {/* Botón de pregunta (?) */}
+                      <button
+                        type="button"
+                        tabIndex={0}
+                        aria-label={`Información sobre ${app.nombre}`}
+                        className="w-4 h-4 mr-1.5 rounded-full flex items-center justify-center text-purple-300 hover:text-white hover:bg-white/20 transition-all opacity-40 group-hover/item:opacity-100 focus:opacity-100 cursor-help shrink-0"
+                        onMouseEnter={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          setHoveredAppTooltip({
+                            app,
+                            top: rect.top + rect.height / 2,
+                            left: rect.right + 10,
+                          });
+                        }}
+                        onMouseLeave={() => setHoveredAppTooltip(null)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <HelpCircle className="w-3 h-3" />
+                      </button>
+                    </div>
                   );
                 })}
               </div>
@@ -498,7 +528,7 @@ export default function HeroInteractivePreview() {
               LIENZO PRINCIPAL DINÁMICO QUE CAMBIA SEGÚN LA APLICACIÓN SELECCIONADA
           ========================================================================= */}
           <div className="flex-1 flex flex-col bg-white dark:bg-[#0c101d] overflow-y-auto [scrollbar-width:thin]">
-            
+
             {/* Cabecera contextual con botón de retorno rápido a Inicio */}
             <div className="px-4 sm:px-6 py-2.5 border-b border-slate-200 dark:border-white/10 flex items-center justify-between gap-3 bg-white dark:bg-[#0c101d] sticky top-0 z-10">
               <div className="flex items-center gap-2">
@@ -516,7 +546,7 @@ export default function HeroInteractivePreview() {
 
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight capitalize">
                   {activeApp === 'inicio' && 'Inicio'}
-                  {activeApp === 'archivos' && 'Archivos e Intranet'}
+                  {activeApp === 'archivos' && 'Archivos'}
                   {activeApp === 'asistente' && 'Asistente de Decisiones'}
                   {activeApp === 'estadistica' && 'Estadística y Metas REM'}
                   {activeApp === 'farmacia' && 'Farmacia y Existencias'}
@@ -547,7 +577,7 @@ export default function HeroInteractivePreview() {
 
             {/* CONTENEDOR SEGÚN APLICACIÓN */}
             <div className="p-4 sm:p-6 lg:p-7 space-y-4 sm:space-y-5">
-              
+
               {/* =========================================================================
                   VISTA 1: INICIO (PÁGINA PRINCIPAL / BOLETÍN INTRAVOX)
               ========================================================================= */}
@@ -559,29 +589,22 @@ export default function HeroInteractivePreview() {
                       <span className="text-base sm:text-lg font-bold text-white tracking-tight block">
                         Bienvenida
                       </span>
-                      
+
                       <h3
-                        className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white mt-4 sm:mt-5 mb-2 transition-all duration-500 ease-in-out ${
-                          isFading ? 'opacity-0 translate-y-1.5' : 'opacity-100 translate-y-0'
-                        }`}
+                        className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white mt-4 sm:mt-5 mb-2 transition-all duration-500 ease-in-out ${isFading ? 'opacity-0 translate-y-1.5' : 'opacity-100 translate-y-0'
+                          }`}
                       >
                         {currentCenter.nombre}
                       </h3>
 
                       <p
-                        className={`text-xs sm:text-sm text-purple-100 font-medium transition-all duration-500 ease-in-out ${
-                          isFading ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
-                        }`}
+                        className={`text-xs sm:text-sm text-purple-100 font-medium transition-all duration-500 ease-in-out ${isFading ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'
+                          }`}
                       >
                         {currentCenter.comuna} &bull; {currentCenter.servicioSalud}
                       </p>
                     </div>
                   </div>
-
-                  {/* Texto institucional */}
-                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                    Todo lo compartido es de todo el personal: en «Archivos», usted lee, escribe, borra y comparte en la carpeta de cada sector, de cada programa y de cada unidad (SOME, Farmacia, Dental, OIRS y Estadística-REM), y en Intranet, donde puede editar esta página. Las carpetas Dirección y Subdirección son del equipo directivo: solo las ven Director/a de {currentCenter.tipo}, Subdirector/a Médico o Jefe Técnico y Secretario/a de Dirección.
-                  </p>
 
                   {/* 4 Accesos directos a las aplicaciones clave */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-1">
@@ -643,11 +666,10 @@ export default function HeroInteractivePreview() {
                     <button
                       type="button"
                       onClick={handleToggleReaction}
-                      className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-                        reactions.userReacted
+                      className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${reactions.userReacted
                           ? 'bg-purple-50 dark:bg-purple-950/70 border-purple-400 text-[#761df1] dark:text-purple-300 shadow-xs'
                           : 'bg-white dark:bg-[#131a2d] border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5'
-                      }`}
+                        }`}
                       title="Reaccionar a la publicación"
                     >
                       <Smile className="w-4 h-4 text-[#761df1] dark:text-purple-400" />
@@ -1016,55 +1038,50 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setSelectedSector('todos')}
-                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer ${
-                          selectedSector === 'todos'
+                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer ${selectedSector === 'todos'
                             ? 'bg-[#761df1] text-white shadow-sm'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-                        }`}
+                          }`}
                       >
                         Todos (4)
                       </button>
                       <button
                         type="button"
                         onClick={() => setSelectedSector('azul')}
-                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${
-                          selectedSector === 'azul'
+                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${selectedSector === 'azul'
                             ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
                             : 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800/40 hover:bg-blue-100'
-                        }`}
+                          }`}
                       >
                         ● Sector 1 Azul
                       </button>
                       <button
                         type="button"
                         onClick={() => setSelectedSector('verde')}
-                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${
-                          selectedSector === 'verde'
+                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${selectedSector === 'verde'
                             ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm'
                             : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/40 hover:bg-emerald-100'
-                        }`}
+                          }`}
                       >
                         ● Sector 2 Verde
                       </button>
                       <button
                         type="button"
                         onClick={() => setSelectedSector('rojo')}
-                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${
-                          selectedSector === 'rojo'
+                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${selectedSector === 'rojo'
                             ? 'bg-rose-600 text-white border-rose-500 shadow-sm'
                             : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/40 hover:bg-rose-100'
-                        }`}
+                          }`}
                       >
                         ● Sector 3 Rojo
                       </button>
                       <button
                         type="button"
                         onClick={() => setSelectedSector('amarillo')}
-                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${
-                          selectedSector === 'amarillo'
+                        className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer border ${selectedSector === 'amarillo'
                             ? 'bg-amber-600 text-white border-amber-500 shadow-sm'
                             : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800/40 hover:bg-amber-100'
-                        }`}
+                          }`}
                       >
                         ● Sector 4 Amarillo
                       </button>
@@ -1079,7 +1096,7 @@ export default function HeroInteractivePreview() {
 
                   {/* Lienzo del Mapa GIS Interactivo con estilo vector urbano profesional */}
                   <div className="relative w-full h-[360px] sm:h-[400px] rounded-2xl bg-[#0a0f1d] border border-slate-700/60 dark:border-white/10 overflow-hidden shadow-inner select-none">
-                    
+
                     {/* SVG Vectorial del Mapa */}
                     <div
                       className="w-full h-full cursor-grab active:cursor-grabbing transition-transform duration-300 ease-out flex items-center justify-center"
@@ -1513,11 +1530,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setActiveLayers((prev) => ({ ...prev, postrados: !prev.postrados }))}
-                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${
-                          activeLayers.postrados
+                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${activeLayers.postrados
                             ? 'bg-blue-600/90 text-white border-blue-400 shadow-sm'
                             : 'bg-slate-900/80 text-slate-400 border-white/10 hover:text-white'
-                        }`}
+                          }`}
                       >
                         <MapPin className="w-3 h-3" />
                         <span>Postrados PADI (3)</span>
@@ -1526,11 +1542,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setActiveLayers((prev) => ({ ...prev, comunitarios: !prev.comunitarios }))}
-                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${
-                          activeLayers.comunitarios
+                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${activeLayers.comunitarios
                             ? 'bg-emerald-600/90 text-white border-emerald-400 shadow-sm'
                             : 'bg-slate-900/80 text-slate-400 border-white/10 hover:text-white'
-                        }`}
+                          }`}
                       >
                         <Building2 className="w-3 h-3" />
                         <span>Puntos Vecinales (2)</span>
@@ -1539,11 +1554,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setActiveLayers((prev) => ({ ...prev, ruta: !prev.ruta }))}
-                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${
-                          activeLayers.ruta
+                        className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all flex items-center gap-1 cursor-pointer backdrop-blur-md border ${activeLayers.ruta
                             ? 'bg-purple-600/90 text-white border-purple-400 shadow-sm'
                             : 'bg-slate-900/80 text-slate-400 border-white/10 hover:text-white'
-                        }`}
+                          }`}
                       >
                         <Car className="w-3 h-3" />
                         <span>Ruta Móvil Terreno</span>
@@ -1718,7 +1732,7 @@ export default function HeroInteractivePreview() {
                                 width: `${Math.round(
                                   (GIS_SECTORS[selectedSector].visitasCompletadas /
                                     GIS_SECTORS[selectedSector].visitasHoy) *
-                                    100
+                                  100
                                 )}%`,
                               }}
                             />
@@ -1959,11 +1973,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setSelectedContact('admin')}
-                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${
-                          selectedContact === 'admin'
+                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${selectedContact === 'admin'
                             ? 'bg-purple-50 dark:bg-purple-950/70 border border-purple-300 font-bold text-purple-700 dark:text-purple-300'
                             : 'hover:bg-slate-50 dark:hover:bg-white/5'
-                        }`}
+                          }`}
                       >
                         <div className="w-6 h-6 rounded-full bg-purple-600 text-white font-bold text-[10px] flex items-center justify-center">A</div>
                         <span className="truncate">admin (Dirección)</span>
@@ -1972,11 +1985,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setSelectedContact('director')}
-                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${
-                          selectedContact === 'director'
+                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${selectedContact === 'director'
                             ? 'bg-purple-50 dark:bg-purple-950/70 border border-purple-300 font-bold text-purple-700 dark:text-purple-300'
                             : 'hover:bg-slate-50 dark:hover:bg-white/5'
-                        }`}
+                          }`}
                       >
                         <div className="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center">DD</div>
                         <span className="truncate">Director/a de {currentCenter.tipo}</span>
@@ -1985,11 +1997,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setSelectedContact('some')}
-                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${
-                          selectedContact === 'some'
+                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${selectedContact === 'some'
                             ? 'bg-purple-50 dark:bg-purple-950/70 border border-purple-300 font-bold text-purple-700 dark:text-purple-300'
                             : 'hover:bg-slate-50 dark:hover:bg-white/5'
-                        }`}
+                          }`}
                       >
                         <div className="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center">SOME</div>
                         <span className="truncate">Jefe/a de SOME</span>
@@ -1998,11 +2009,10 @@ export default function HeroInteractivePreview() {
                       <button
                         type="button"
                         onClick={() => setSelectedContact('farmacia')}
-                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${
-                          selectedContact === 'farmacia'
+                        className={`w-full text-left p-2 rounded-lg flex items-center gap-2 cursor-pointer ${selectedContact === 'farmacia'
                             ? 'bg-purple-50 dark:bg-purple-950/70 border border-purple-300 font-bold text-purple-700 dark:text-purple-300'
                             : 'hover:bg-slate-50 dark:hover:bg-white/5'
-                        }`}
+                          }`}
                       >
                         <div className="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-[10px] flex items-center justify-center">QF</div>
                         <span className="truncate">Jefe/a de Farmacia</span>
@@ -2241,7 +2251,7 @@ export default function HeroInteractivePreview() {
 
                   <div className="space-y-2 text-xs">
                     <div className="font-bold text-slate-700 dark:text-slate-300">Hoy</div>
-                    
+
                     <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-[#131a2d] flex items-center justify-between">
                       <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                         <span className="text-emerald-500 font-bold">+</span>
@@ -2333,9 +2343,8 @@ export default function HeroInteractivePreview() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span
-              className={`font-medium text-slate-700 dark:text-slate-300 transition-all duration-500 ease-in-out ${
-                isFading ? 'opacity-0' : 'opacity-100'
-              }`}
+              className={`font-medium text-slate-700 dark:text-slate-300 transition-all duration-500 ease-in-out ${isFading ? 'opacity-0' : 'opacity-100'
+                }`}
             >
               Instancia Nextcloud On-Premise &bull; 100% Red LAN Local en {currentCenter.comuna}
             </span>
@@ -2345,6 +2354,32 @@ export default function HeroInteractivePreview() {
           </div>
         </div>
       </div>
+
+      {/* Tooltip flotante global (escapa del overflow-hidden y z-index interno) */}
+      {hoveredAppTooltip && (
+        <div
+          role="tooltip"
+          style={{
+            position: 'fixed',
+            top: `${hoveredAppTooltip.top}px`,
+            left: `${hoveredAppTooltip.left}px`,
+            transform: 'translateY(-50%)',
+          }}
+          className="pointer-events-none w-56 sm:w-64 p-3 rounded-xl bg-slate-900/98 dark:bg-[#070b16]/98 text-slate-100 text-[11px] leading-snug font-normal shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-purple-500/40 backdrop-blur-md z-[9999] animate-in fade-in zoom-in-95 duration-150"
+        >
+          <div className="font-bold text-white text-xs mb-1.5 flex items-center gap-1.5 text-purple-300">
+            {React.createElement(hoveredAppTooltip.app.icono, {
+              className: 'w-3.5 h-3.5 text-purple-400 shrink-0',
+            })}
+            <span>{hoveredAppTooltip.app.nombre}</span>
+          </div>
+          <p className="text-slate-300 text-[11px] font-normal leading-relaxed">
+            {hoveredAppTooltip.app.descripcion}
+          </p>
+          {/* Flecha indicadora del tooltip hacia la izquierda */}
+          <div className="absolute right-full top-1/2 -translate-y-1/2 border-[5px] border-transparent border-r-slate-900/98 dark:border-r-[#070b16]/98" />
+        </div>
+      )}
     </div>
   );
 }

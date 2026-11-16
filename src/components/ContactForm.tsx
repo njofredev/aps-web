@@ -45,7 +45,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-3.5 text-left">
+    <form action={formAction} className="space-y-4 text-left">
       {state?.message && !state.success && (
         <div
           role="alert"
@@ -56,11 +56,11 @@ export default function ContactForm() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Nombre */}
+      {/* Nombre y Correo */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         <div className="space-y-1">
           <label htmlFor="nombre" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-            Nombre <span className="text-rose-500">*</span>
+            Tu Nombre <span className="text-rose-500">*</span>
           </label>
           <input
             id="nombre"
@@ -68,7 +68,7 @@ export default function ContactForm() {
             type="text"
             required
             placeholder="Dra. Marcela Gómez"
-            className={`w-full px-3 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-[#13192f] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-[#151c36] focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
               state?.errors?.nombre
                 ? 'border-rose-500 bg-rose-500/10'
                 : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
@@ -79,10 +79,9 @@ export default function ContactForm() {
           )}
         </div>
 
-        {/* Correo Electrónico */}
         <div className="space-y-1">
           <label htmlFor="email" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-            Correo <span className="text-rose-500">*</span>
+            Correo de contacto <span className="text-rose-500">*</span>
           </label>
           <input
             id="email"
@@ -90,7 +89,7 @@ export default function ContactForm() {
             type="email"
             required
             placeholder="marcela@salud.cl"
-            className={`w-full px-3 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-[#13192f] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-[#151c36] focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
               state?.errors?.email
                 ? 'border-rose-500 bg-rose-500/10'
                 : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
@@ -102,95 +101,47 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Establecimiento o Comuna */}
-        <div className="space-y-1">
-          <label htmlFor="establecimiento" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-            CESFAM o Comuna <span className="text-rose-500">*</span>
-          </label>
-          <input
-            id="establecimiento"
-            name="establecimiento"
-            type="text"
-            required
-            placeholder="CESFAM Damianovic"
-            className={`w-full px-3 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-[#13192f] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-[#151c36] focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
-              state?.errors?.establecimiento
-                ? 'border-rose-500 bg-rose-500/10'
-                : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
-            }`}
-          />
-          {state?.errors?.establecimiento && (
-            <p className="text-[11px] text-rose-500 font-semibold">{state.errors.establecimiento}</p>
-          )}
-        </div>
-
-        {/* Rol o Estamento */}
-        <div className="space-y-1">
-          <label htmlFor="estamento" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-            Rol en el centro <span className="text-rose-500">*</span>
-          </label>
-          <select
-            id="estamento"
-            name="estamento"
-            required
-            defaultValue=""
-            className={`w-full px-3 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-[#13192f] text-slate-900 dark:text-slate-100 transition-all duration-200 focus:bg-white dark:focus:bg-[#151c36] focus:outline-none focus:ring-2 focus:ring-purple-500/15 cursor-pointer ${
-              state?.errors?.estamento
-                ? 'border-rose-500 bg-rose-500/10'
-                : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
-            }`}
-          >
-            <option value="" disabled>
-              Selecciona tu rol
-            </option>
-            <option value="Dirección de Salud Municipal (DISAM/DESAM)">
-              Dirección DISAM / DESAM
-            </option>
-            <option value="Dirección de CESFAM / CECOSF">Dirección CESFAM / CECOSF</option>
-            <option value="Jefatura de Sector / SOME">Jefatura SOME / Sector</option>
-            <option value="Encargado/a de Informática y TI Comunal">
-              Informática y TI Comunal
-            </option>
-            <option value="Profesional Clínico (Médico, Enfermero/a, etc.)">
-              Profesional Clínico/a
-            </option>
-            <option value="Personal Administrativo / TENS">Administrativo / TENS</option>
-            <option value="Otro">Otro cargo</option>
-          </select>
-          {state?.errors?.estamento && (
-            <p className="text-[11px] text-rose-500 font-semibold">{state.errors.estamento}</p>
-          )}
-        </div>
+      {/* CESFAM o Comuna */}
+      <div className="space-y-1">
+        <label htmlFor="establecimiento" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+          CESFAM, CECOSF o Comuna <span className="text-rose-500">*</span>
+        </label>
+        <input
+          id="establecimiento"
+          name="establecimiento"
+          type="text"
+          required
+          placeholder="Ej: CESFAM Juan Damianovic, Punta Arenas"
+          className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+            state?.errors?.establecimiento
+              ? 'border-rose-500 bg-rose-500/10'
+              : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
+          }`}
+        />
+        {state?.errors?.establecimiento && (
+          <p className="text-[11px] text-rose-500 font-semibold">{state.errors.establecimiento}</p>
+        )}
       </div>
 
-      {/* Mensaje o requerimiento */}
+      {/* Consulta o requerimiento (Opcional) */}
       <div className="space-y-1">
         <label htmlFor="mensaje" className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-          Consulta o Requerimiento <span className="text-rose-500">*</span>
+          ¿Alguna duda o requerimiento previo? <span className="text-slate-400 font-normal">(Opcional)</span>
         </label>
         <textarea
           id="mensaje"
           name="mensaje"
           rows={2}
-          required
-          placeholder="Cuéntanos brevemente sobre tu CESFAM o qué dudas tienes..."
-          className={`w-full px-3 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-[#13192f] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-[#151c36] focus:outline-none focus:ring-2 focus:ring-purple-500/15 resize-none ${
-            state?.errors?.mensaje
-              ? 'border-rose-500 bg-rose-500/10'
-              : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
-          }`}
+          placeholder="Ej: Cuéntanos brevemente si tienen servidor disponible o fecha estimada para el piloto..."
+          className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 resize-none border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]"
         />
-        {state?.errors?.mensaje && (
-          <p className="text-[11px] text-rose-500 font-semibold">{state.errors.mensaje}</p>
-        )}
       </div>
 
-      <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="pt-2 flex flex-col sm:flex-row-reverse sm:items-center justify-between gap-3">
         <button
           type="submit"
           disabled={isPending}
-          className="w-full sm:w-auto h-11 px-6 rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] active:bg-[#581cb1] text-white text-xs sm:text-sm font-bold shadow-[0_8px_24px_-4px_rgba(127,33,254,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-60"
+          className="w-full sm:w-auto h-11 px-7 rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] active:bg-[#581cb1] text-white text-xs sm:text-sm font-bold shadow-[0_8px_24px_-4px_rgba(127,33,254,0.45)] hover:shadow-[0_12px_28px_-4px_rgba(127,33,254,0.65)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
         >
           {isPending ? (
             <>
@@ -200,7 +151,7 @@ export default function ContactForm() {
           ) : (
             <>
               <Send className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Solicitar Piloto</span>
+              <span>Postular al Piloto</span>
             </>
           )}
         </button>
