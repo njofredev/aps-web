@@ -4,7 +4,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+# Se instalan todas las dependencias (incluyendo devDependencies para el build)
+RUN npm ci --include=dev
 
 # Etapa 2: Builder
 FROM node:22-alpine AS builder
@@ -14,7 +15,6 @@ COPY . .
 
 # Deshabilitar telemetría de Next.js durante build
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
 
 RUN npm run build
 
