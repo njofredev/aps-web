@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ApsLogo } from '@/components/ApsLogo';
 import ThemeToggle from '@/components/ThemeToggle';
 import ContactForm from '@/components/ContactForm';
-import { Sparkles, CheckCircle2, ShieldCheck, ArrowLeft, Lock } from 'lucide-react';
+import { Sparkles, CheckCircle2, ShieldCheck, ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Postula tu CESFAM al Piloto 2027 | APS Conecta',
