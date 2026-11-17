@@ -68,7 +68,7 @@ export default function ContactForm() {
             type="text"
             required
             placeholder="Dra. Marcela Gómez"
-            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+            className={`w-full px-3.5 py-2.5 text-base sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
               state?.errors?.nombre
                 ? 'border-rose-500 bg-rose-500/10'
                 : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
@@ -89,7 +89,7 @@ export default function ContactForm() {
             type="email"
             required
             placeholder="marcela@salud.cl"
-            className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+            className={`w-full px-3.5 py-2.5 text-base sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
               state?.errors?.email
                 ? 'border-rose-500 bg-rose-500/10'
                 : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
@@ -112,7 +112,7 @@ export default function ContactForm() {
           type="text"
           required
           placeholder="Ej: CESFAM Juan Damianovic, Punta Arenas"
-          className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
+          className={`w-full px-3.5 py-2.5 text-base sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 ${
             state?.errors?.establecimiento
               ? 'border-rose-500 bg-rose-500/10'
               : 'border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]'
@@ -133,7 +133,7 @@ export default function ContactForm() {
           name="mensaje"
           rows={2}
           placeholder="Ej: Cuéntanos brevemente si tienen servidor disponible o fecha estimada para el piloto..."
-          className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 resize-none border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]"
+          className="w-full px-3.5 py-2 text-base sm:text-sm rounded-xl border bg-slate-50/90 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all duration-200 focus:bg-white dark:focus:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-purple-500/15 resize-none border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-500/40 focus:border-[#7f21fe]"
         />
       </div>
 

@@ -455,7 +455,7 @@ export default function ShowcaseViewer() {
 
       </div>
 
-      {/* Versión Móvil accesible: Hub superior + Grilla de 2 columnas */}
+      {/* Versión Móvil accesible: Hub superior + Grilla de 2 columnas con soporte de tap */}
       <div className="md:hidden flex flex-col gap-3 w-full relative z-10">
         <div className="w-full mb-1">
           <CenterHubCard hoveredApp={hoveredApp} />
@@ -468,6 +468,13 @@ export default function ShowcaseViewer() {
               isHovered={hoveredApp?.id === app.id}
               onEnter={() => handleCardEnter(app)}
               onLeave={handleCardLeave}
+              onClick={() => {
+                if (hoveredApp?.id === app.id) {
+                  setHoveredApp(null);
+                } else {
+                  setHoveredApp(app);
+                }
+              }}
               className="w-full"
             />
           ))}
@@ -519,7 +526,7 @@ function CenterHubCard({ hoveredApp }: { hoveredApp: AppTile | null }) {
               Toda la trastienda de tu CESFAM conectada
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-normal max-w-md mx-auto leading-relaxed">
-              Pasa el cursor sobre cualquiera de las 17 aplicaciones para conocer su función operativa
+              Toca o pasa el cursor sobre cualquiera de las 17 aplicaciones para conocer su función
             </p>
           </>
         )}
@@ -535,12 +542,14 @@ function DentalinkCard({
   isHovered,
   onEnter,
   onLeave,
+  onClick,
   className = '',
 }: {
   app: AppTile;
   isHovered: boolean;
   onEnter: () => void;
   onLeave: () => void;
+  onClick?: () => void;
   className?: string;
 }) {
   const Icon = app.icono;
@@ -550,6 +559,14 @@ function DentalinkCard({
       key={app.id}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick?.();
+        }
+      }}
       className={`rounded-2xl p-3 sm:p-3.5 bg-white dark:bg-[#0e1424] border flex flex-col items-center justify-center text-center gap-1.5 cursor-pointer transition-all duration-200 ease-out select-none min-h-[92px] sm:min-h-[105px] relative ${
         isHovered
           ? 'scale-[1.04] sm:scale-105 shadow-xl shadow-purple-500/20 border-[#7f21fe] dark:border-purple-400 z-30 bg-purple-50/90 dark:bg-[#13192f]'

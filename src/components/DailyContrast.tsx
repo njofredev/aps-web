@@ -242,7 +242,7 @@ export default function DailyContrast() {
                 className="w-full shrink-0 pr-0 sm:pr-8 lg:pr-12"
               >
                 <div
-                  className={`relative rounded-3xl p-6 sm:p-9 text-left flex flex-col justify-between transition-all duration-300 overflow-hidden ${
+                  className={`relative rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-9 text-left flex flex-col justify-between transition-all duration-300 overflow-hidden ${
                     isSelected
                       ? 'bg-gradient-to-b from-[#24314c] via-[#1a2337] to-[#121929] border-2 border-[#7f21fe]/70 shadow-2xl shadow-purple-950/50 opacity-100'
                       : 'bg-white/[0.04] border border-white/10 opacity-40'
@@ -252,28 +252,28 @@ export default function DailyContrast() {
                   <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36]" />
 
                   {/* Cabecera del paso */}
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between gap-3 flex-wrap">
-                      <div className="flex items-center gap-3">
-                        <span className="w-10 h-10 rounded-full bg-white text-slate-900 shadow-md font-black text-sm flex items-center justify-center shrink-0">
+                  <div className="space-y-3.5 sm:space-y-4">
+                    <div className="flex items-center justify-between gap-2.5 flex-wrap">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-slate-900 shadow-md font-black text-xs sm:text-sm flex items-center justify-center shrink-0">
                           {step.step}
                         </span>
-                        <span className="text-[11px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-full bg-[#7f21fe]/30 text-purple-200 border border-purple-400/30">
+                        <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider font-bold px-2.5 sm:px-3 py-1 rounded-full bg-[#7f21fe]/30 text-purple-200 border border-purple-400/30">
                           {step.category}
                         </span>
                       </div>
 
                       <div className="text-right">
-                        <span className="text-[10px] text-slate-400 block font-medium">Impacto medido</span>
-                        <span className="text-sm sm:text-base font-mono font-bold text-emerald-400">
+                        <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Impacto medido</span>
+                        <span className="text-xs sm:text-base font-mono font-bold text-emerald-400">
                           {step.metric}
                         </span>
                       </div>
                     </div>
 
                     {/* Título y descripción sin recortes */}
-                    <div className="space-y-2">
-                      <h3 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-white tracking-tight leading-snug">
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <h3 className="text-lg sm:text-2xl lg:text-[26px] font-extrabold text-white tracking-tight leading-snug">
                         {step.title}
                       </h3>
                       <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
@@ -282,24 +282,24 @@ export default function DailyContrast() {
                     </div>
 
                     {/* Caja de problemática (El Antes de APS Conecta) */}
-                    <div className="p-3.5 rounded-2xl bg-rose-950/30 border border-rose-500/25 flex items-start gap-3 text-rose-200/90">
+                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-rose-950/30 border border-rose-500/25 flex items-start gap-2.5 sm:gap-3 text-rose-200/90">
                       <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                       <div className="space-y-0.5">
                         <span className="text-[10px] font-bold text-rose-300 uppercase tracking-wider block">
                           Problemática antes de APS Conecta:
                         </span>
-                        <p className="text-xs leading-relaxed">{step.painPoint}</p>
+                        <p className="text-[11px] sm:text-xs leading-relaxed">{step.painPoint}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Zona inferior de la tarjeta: Persona clínica y mockup funcional */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-6 mt-6 border-t border-white/10 items-center">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/10 items-center">
                     
                     {/* Tarjeta flotante de la persona clínica (estilo Letters) */}
-                    <div className="p-3.5 rounded-2xl bg-white text-slate-900 shadow-xl shadow-black/25 flex items-center gap-3">
+                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white text-slate-900 shadow-xl shadow-black/25 flex items-center gap-2.5 sm:gap-3">
                       <div
-                        className={`w-11 h-11 rounded-full flex items-center justify-center font-black text-xs text-white shrink-0 shadow-xs ${step.persona.avatarBg}`}
+                        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-black text-xs text-white shrink-0 shadow-xs ${step.persona.avatarBg}`}
                       >
                         {step.persona.initials}
                       </div>
@@ -307,17 +307,17 @@ export default function DailyContrast() {
                         <p className="text-xs sm:text-sm font-extrabold text-slate-900 truncate">
                           {step.persona.name}
                         </p>
-                        <p className="text-[11px] text-slate-500 truncate">
+                        <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">
                           {step.persona.role}
                         </p>
-                        <span className="inline-block text-[10px] text-purple-700 font-bold uppercase tracking-wider">
+                        <span className="inline-block text-[9px] sm:text-[10px] text-purple-700 font-bold uppercase tracking-wider">
                           Usuario verificado APS
                         </span>
                       </div>
                     </div>
 
                     {/* Detalle visual de solución técnica */}
-                    <div className="p-3.5 rounded-2xl bg-white/[0.05] border border-white/10 space-y-1.5">
+                    <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/[0.05] border border-white/10 space-y-1 sm:space-y-1.5">
                       <div className="flex items-center gap-2">
                         <span className={`p-1 rounded-md border ${step.mockVisual.accentColor}`}>
                           <MockIcon className="w-3.5 h-3.5" />
@@ -348,10 +348,10 @@ export default function DailyContrast() {
       {/* =========================================================================
           CONTROLES DE NAVEGACIÓN Y DOTS INFERIORES
       ========================================================================= */}
-      <div className="flex items-center justify-between px-2 pt-1">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-1 pt-1">
         
         {/* Indicadores de avance (dots interactivos con gradiente) */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {STEPS.map((step, idx) => (
             <button
               key={step.id}
@@ -360,13 +360,13 @@ export default function DailyContrast() {
               aria-label={`Ir al paso ${idx + 1}: ${step.title}`}
               className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                 idx === activeIndex
-                  ? 'w-10 bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36]'
-                  : 'w-2.5 bg-white/20 hover:bg-white/40'
+                  ? 'w-7 sm:w-10 bg-gradient-to-r from-purple-500 via-[#e06f00] to-[#f28f36]'
+                  : 'w-2 sm:w-2.5 bg-white/20 hover:bg-white/40'
               }`}
             />
           ))}
-          <span className="text-[11px] text-slate-400 font-mono ml-2">
-            Paso {activeIndex + 1} de {STEPS.length}
+          <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono ml-1.5">
+            {activeIndex + 1}/{STEPS.length}
           </span>
         </div>
 
@@ -376,7 +376,7 @@ export default function DailyContrast() {
             type="button"
             onClick={handlePrev}
             aria-label="Paso anterior (izquierda)"
-            className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95 shadow-sm"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95 shadow-sm"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -384,7 +384,7 @@ export default function DailyContrast() {
             type="button"
             onClick={handleNext}
             aria-label="Paso siguiente (derecha)"
-            className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white border border-purple-500/40 shadow-lg shadow-purple-900/30 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95 ring-1 ring-purple-400/40"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 text-white border border-purple-500/40 shadow-lg shadow-purple-900/30 flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-95 ring-1 ring-purple-400/40"
           >
             <ChevronRight className="w-5 h-5" />
           </button>

@@ -264,14 +264,14 @@ export default function Navigation() {
             </nav>
 
             <div className="pt-6 space-y-3">
-              <a
-                href="#contacto"
+              <Link
+                href="/agenda"
                 onClick={() => setIsOpen(false)}
                 className="w-full h-12 rounded-full bg-[#7f21fe] hover:bg-[#6c1bd9] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#7f21fe]/30 cursor-pointer"
               >
                 <span>Solicitar Piloto en tu Comuna</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </a>
+              </Link>
 
               <a
                 href="https://github.com/APS-Conecta"
